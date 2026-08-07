@@ -12,12 +12,16 @@ export type Purchase = {
   receiptUri?: string;
 };
 
+export type SplitMode = 'equal' | 'percentage';
+
 export type Party = {
   id: number;
   name: string;
   participants: Participant[];
   items: Item[];
   purchases: Purchase[];
+  splitMode: SplitMode;
+  splitPercentages?: Record<number, number>;
 };
 
 export type Balance = {

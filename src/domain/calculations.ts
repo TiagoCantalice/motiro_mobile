@@ -4,12 +4,18 @@ export function calculateBalances(party: Party): Balance[] {
   if (party.participants.length === 0) return [];
 
   const totalSpent = party.purchases.reduce((sum, purchase) => sum + purchase.total, 0);
-  const shouldPay = totalSpent / party.participants.length;
+  const percentages = party.splitPercentages;
+  const usePercentages =
+    party.splitMode === 'percentage' &&
+    percentages !== undefined &&
+    party.participants.every((participant) => percentages[participant.id] !== undefined);
+  const equalShare = totalSpent / party.participants.length;
 
   return party.participants.map((participant) => {
     const paid = party.purchases
       .filter((purchase) => purchase.paidById === participant.id)
       .reduce((sum, purchase) => sum + purchase.total, 0);
+    const shouldPay = usePercentages ? totalSpent * ((percentages![participant.id] ?? 0) / 100) : equalShare;
 
     return { participantId: participant.id, paid, shouldPay, balance: paid - shouldPay };
   });
