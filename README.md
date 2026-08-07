@@ -2,6 +2,10 @@
 
 React Native / Expo implementation of the current Motiro flow: create a party, add participants and items, record purchases, and calculate equal-split balances and settlements.
 
+Dashboard sections are collapsed by default. Purchases can create new items inline; those items are also added to the party's Items section. A purchase can include a receipt photo from the gallery or camera.
+
+Receipt OCR is intentionally the next integration step: Expo Go can capture/select the image, but extracting line items requires an OCR engine (for example, a cloud Vision API or a native ML Kit development build).
+
 ## Run it
 
 1. Install Node.js 20 or newer.
